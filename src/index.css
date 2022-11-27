@@ -2,7 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 :root {
+  --global-first: #021F31;
+  --global-second: #007561;
+  --global-third: #2F4858;
+  
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   line-height: 24px;
@@ -10,11 +16,27 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #fff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+@layer utilities{
+  .nav{
+    @apply inline-block mx-2 hover:text-[#ffbf7c]
+  }
+}
+.bg-gradient{
+    background-color: transparent;
+    background-image: linear-gradient(90deg, var(--global-first) 8%, var(--global-second) 100%);
+}
+.bg-button{
+  background-image: linear-gradient(180deg, var(--global-third) 8%, var(--global-second) 100%);
+}
+.bg-button:hover{
+  background-image: linear-gradient(180deg, var(--global-second) 0%, var(--global-third) 100%);
 }
