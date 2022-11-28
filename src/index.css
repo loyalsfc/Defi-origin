@@ -9,7 +9,7 @@
   --global-second: #007561;
   --global-third: #2F4858;
   
-  font-family: 'Roboto', sans-serif;
+  font-family: "DM Sans", sans-serif !important;
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
