@@ -8,7 +8,7 @@ function Validation() {
         return(
             <div key={item.id}>
                 <img src={item.image} alt="" />
-                <h5>{item.name}</h5>
+                <h5 className=''>{item.name}</h5>
             </div>
         )
     })
@@ -19,8 +19,8 @@ function Validation() {
                     <img src={logo} alt="logo" className='w-full min-w-[60px] max-w-[120px] mx-auto' />
                 </div>
             </header>
-            <main className='px-8 pt-[30px]'>
-                <article className='max-w-[700px] text-center text-[#587087] mx-auto'>
+            <main className='px-8 pt-[30px] text-[#587087] text-center'>
+                <article className='max-w-[700px] text-center  mx-auto'>
                     <h2 className='text-[35px] font-medium text-center'>Decentralised Wallet Applications</h2>
                     <p className='mt-10 text-lg '>Following decentralised finance and blockchain applications support Wallets Validation wallets.</p>
                 </article>
