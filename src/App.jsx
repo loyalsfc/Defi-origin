@@ -1,10 +1,11 @@
 import Home from "./pages/home/Home"
+import Validation from "./pages/validation/Validation"
 
 
 function App() {
   return (
     <div className="">
-      <Home />
+      <Validation />
     </div>
   )
 }

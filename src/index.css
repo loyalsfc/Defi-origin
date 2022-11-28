@@ -40,3 +40,6 @@
 .bg-button:hover{
   background-image: linear-gradient(180deg, var(--global-second) 0%, var(--global-third) 100%);
 }
+.grid-fit{
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
