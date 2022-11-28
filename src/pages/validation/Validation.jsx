@@ -1,13 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from '../../assets/sync_wallet/iogo.jpg'
 import Social from './Social'
 import wallet from './wallets'
+import Modal from '../../components/modal/Modal'
 
 function Validation() {
+    const [walletName, setWalletName] = useState('')
+    const [img, setImg] = useState('')
     document.querySelector('title').textContent = 'Sync Wallets'
+
+    function showModal(e){
+        
+    }
+    
     const walletsDisplay = wallet.map(item=>{
         return(
-            <div key={item.id}>
+            <div key={item.id} data-name={item.name} data-image={item.image} onClick={showModal}>
                 <div className='p-[25px] flex items-center justify-center w-full'>
                     <img src={item.image} alt={item.name.toLocaleLowerCase()} className="w-full h-full max-w-full block" />
                 </div>
@@ -15,8 +23,10 @@ function Validation() {
             </div>
         )
     })
+    
     return (
         <div>
+            <Modal />
             <header className='h-[145px] flex items-center justify-center'>
                 <div>
                     <img src={logo} alt="logo" className='w-full min-w-[60px] max-w-[120px] mx-auto' />
