@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Header from '../../components/Header/Header'
 
 import heroImg from '../../assets/hero-img.webp'
@@ -6,8 +6,20 @@ import UseCase from '../../components/usecase/UseCase'
 import Footer from '../../components/footer/Footer'
 
 function Home() {
+
+    const [playAnimation, setPlayAnimation] = useState(true);
+
+    useEffect(() => {
+        setTimeout(()=>{
+            setPlayAnimation(false)
+        },5000)
+    }, []);
+
     return (
         <>
+            {playAnimation && <div id="page-preloader">
+                <div className="theme-loader">Defi Origin</div>
+            </div>}
             <div className='relative bg-gradient md:h-screen z-10'>
                 <div className="max-w-[1140px] mx-auto z-10">
                     <Header />

