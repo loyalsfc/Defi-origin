@@ -104,7 +104,7 @@ export default [
     },
     {
         id: 6,
-        name: "Metamast",
+        name: "Metamask",
         image: metamask
     },
     {

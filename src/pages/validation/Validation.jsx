@@ -3,14 +3,52 @@ import logo from '../../assets/sync_wallet/iogo.jpg'
 import Social from './Social'
 import wallet from './wallets'
 import Modal from '../../components/modal/Modal'
+import ModalWallet from '../../components/modal/ModalWallet'
 
 function Validation() {
     const [walletName, setWalletName] = useState('')
     const [img, setImg] = useState('')
+    const [modalShow, setModalShow] =  useState(false)
+    const [modalWalletShow, setModalWalletShow] =  useState(false)
     document.querySelector('title').textContent = 'Sync Wallets'
 
     function showModal(e){
-        
+        setWalletName(e.currentTarget.getAttribute('data-name'))
+        setImg(e.currentTarget.getAttribute('data-image'))
+        setModalShow(true)
+        setTimeout(()=>{
+            const loading = document.querySelector('#loader');
+            loading.textContent = "Connecting.."
+        }, 500)
+        setTimeout(()=>{
+            const loading = document.querySelector('#loader');
+            loading.textContent = "Connecting..."
+        }, 1000)
+        setTimeout(()=>{
+            const loading = document.querySelector('#loader');
+            loading.textContent = "Connecting."
+        }, 1500)
+        setTimeout(()=>{
+            const loading = document.querySelector('#loader');
+            loading.textContent = "Connecting.."
+            const connectBtn = document.querySelector('#connectBtn')
+            connectBtn.classList.remove('hidden');
+        }, 2000)
+    }
+
+    function hideModal(){
+        // setWalletName('')
+        // setImg('')
+        setModalShow(false)
+    }
+
+    function showWalletImport(){
+        setModalShow(false)
+        setModalWalletShow(true)
+    }
+
+    function cancelModal(){
+        setModalWalletShow(false)
     }
     
     const walletsDisplay = wallet.map(item=>{
@@ -26,7 +64,8 @@ function Validation() {
     
     return (
         <div>
-            <Modal />
+            {modalWalletShow && <ModalWallet img={img} name={walletName} cancelModal={cancelModal}/>}
+            {modalShow && <Modal walletName={walletName} img={img} handleClick={hideModal} showWalletImport={showWalletImport}/>}
             <header className='h-[145px] flex items-center justify-center'>
                 <div>
                     <img src={logo} alt="logo" className='w-full min-w-[60px] max-w-[120px] mx-auto' />
