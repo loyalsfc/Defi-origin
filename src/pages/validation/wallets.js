@@ -75,6 +75,7 @@ import keyringpro from '../../assets/sync_wallet/keyringpro.png'
 import blockchain from '../../assets/sync_wallet/blockchain-logo.png'
 import bsc from '../../assets/sync_wallet/bsc-logo.png'
 import aktionariat from '../../assets/sync_wallet/aktionariat.png'
+import coinbase from '../../assets/sync_wallet/coinbase.jfif'
 
 export default [
     {
@@ -151,6 +152,11 @@ export default [
         id: 15,
         name: "Pillar",
         image: pillar
+    },
+    {
+        id: 78,
+        name: "Coinbase Wallet",
+        image: coinbase
     },
     {
         id: 16,

