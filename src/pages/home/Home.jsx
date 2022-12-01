@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import Header from '../../components/Header/Header'
 
-import heroImg from '../../assets/hero-img.webp'
+import heroImg from '../../assets/hero-img.png'
+import whatImage from '../../assets/whatImage.png'
 import UseCase from '../../components/usecase/UseCase'
 import Footer from '../../components/footer/Footer'
 
@@ -16,47 +17,47 @@ function Home() {
     }, []);
 
     return (
-        <>
+        <div className='bg-[#121212]'>
             {playAnimation && <div id="page-preloader">
                 <div className="theme-loader">Defi Origin</div>
             </div>}
-            <div className='relative bg-gradient md:h-screen z-10'>
-                <div className="max-w-[1140px] mx-auto z-10">
-                    <Header />
+            <div className='relative'>
+                <Header />
+                <div className="container mx-auto z-10 font-Inter">
                     <section>
                         <div className='flex flex-col md:flex-row items-center md:h-screen justify-between text-center md:text-left'>
-                            <article>
-                                <h1 className='text-[2.25rem] md:text-[3.5rem] leading-[120%] font-semibold mb-5'>Decentralized App <br/> Cloud Platform</h1>
-                                <p className='text-sm text-[#B1ADAD] md:text-lg'>Open source web3 deep linking <br/> to blockchain Dapps.</p>
+                            <article className='mb-10 md:mb-0'>
+                                <h1 className='text-[2.25rem] md:text-[3.5rem] leading-[120%] font-[900] mb-5'>Decentralized App <br/> <span className='text-main-color'>Cloud Platform</span></h1>
+                                <p className='text-xl text-[#B1ADAD] md:text-3xl text-main-color/[0.5] font-medium'>Open source web3 deep linking <br/> to blockchain Dapps.</p>
                             </article>
                             <div className='p-2.5'>
-                                <img src={heroImg} alt="Hero Image" className='w-[32.75rem]'/>
+                                <img src={heroImg} alt="Hero Image" className='w-[34.81rem]'/>
                             </div>
                         </div>
                     </section>
                 </div>
-                <div className="-scale-y-100 absolute -bottom-1 w-full -z-10" data-negative="false">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
-                        <path className="fill-white" opacity="0.33" d="M473,67.3c-203.9,88.3-263.1-34-320.3,0C66,119.1,0,59.7,0,59.7V0h1000v59.7 c0,0-62.1,26.1-94.9,29.3c-32.8,3.3-62.8-12.3-75.8-22.1C806,49.6,745.3,8.7,694.9,4.7S492.4,59,473,67.3z"></path>
-                        <path className="fill-white" opacity="0.66" d="M734,67.3c-45.5,0-77.2-23.2-129.1-39.1c-28.6-8.7-150.3-10.1-254,39.1 s-91.7-34.4-149.2,0C115.7,118.3,0,39.8,0,39.8V0h1000v36.5c0,0-28.2-18.5-92.1-18.5C810.2,18.1,775.7,67.3,734,67.3z"></path>
-                        <path className="fill-white" d="M766.1,28.9c-200-57.5-266,65.5-395.1,19.5C242,1.8,242,5.4,184.8,20.6C128,35.8,132.3,44.9,89.9,52.5C28.6,63.7,0,0,0,0 h1000c0,0-9.9,40.9-83.6,48.1S829.6,47,766.1,28.9z"></path>
-                    </svg>
-                </div>
             </div>
-            <main className='bg-white p-2.5 mt-[50px]'>
-                <div className='text-center'>
-                    <h2 className='text-[2.75rem] md:text-[3.25rem] text-[#2F4858] mb-5 leading-[150%] font-bold'>What is Defi Origin?</h2>
-                    <p className='text-lg leading-[150%] my-[1.125rem] max-w-[37.1rem] mx-auto text-[#7A7A7A] p-2.5'>Defi Origin is an open source protocol for connecting decentralised applications to mobile wallets with QR code scanning or deep linking. A user can interact securely with any Dapp from their mobile phone, making Decentralized wallets a safer choice compared to desktop or browser extension wallets.</p>
-                    <section className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-1 mb-[50px] max-w-[1140px] mx-auto'>
+            <main className='p-2.5 mt-[50px] '>
+                <div className='container mx-auto'>
+                    <div className='flex justify-between items-center flex-col md:flex-row md:mb-[100px] font-Inter'>
+                        <article className='text-center md:text-left'>
+                            <h2 className='text-[2.75rem] md:text-[3.25rem] mb-5 leading-[120%] md:leading-[150%] font-bold'>What is <span className='text-main-color'>Defi</span> Origin ?</h2>
+                            <p className='text-xl font-medium leading-[120%] my-[1.125rem] p-2.5'>Defi Origin is an open source protocol for connecting decentralised applications to mobile wallets with QR code scanning or deep linking. A user can interact securely with any Dapp from their mobile phone, making Decentralized wallets a safer choice compared to desktop or browser extension wallets.</p>
+                        </article>
+                        <div className='shrink-0 hidden md:block'>
+                            <img src={whatImage} alt="What is " />
+                        </div>
+                    </div>
+                    <section className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-1 gap-y-8 md:gap-y-1 mb-[50px] text-center'>
                         <UseCase  
                             iconName = "network-wired"
                             title = "Connect to Dapps"
-                            content = "Connect decentralized web applications to mobile wallets. Enable dAPP on mobile wallet or extension"
+                            content = "Connect decentralized web applications to mobile wallets. Enable Dapps on mobile wallet or extension"
                         />
                         <UseCase 
                             iconName = "check"
                             title = "Validate"
-                            content = "Synchronize wallet dapps and server in a multichain node"
+                            content = "Synchronize wallet Dapps and server in a multichain node"
                         />
                         <UseCase 
                             iconName = "bridge"
@@ -64,25 +65,25 @@ function Home() {
                             content = "Interaction eith EVODeFi Cross-Chain Token Bridge with Open source for auditability WEB3"
                         />
                         <UseCase 
-                            iconName = "dollar-sign"
-                            title = "NFT/MINT"
-                            content = "Multichain sign-in protocol in WEB3 open source"
+                            iconName = "arrows-rotate"
+                            title = "Migrate"
+                            content = "Multichange token upgrade in the WEB3 open source"
                         />
                         <UseCase 
                             iconName = "wallet"
-                            title = "Wallect Connect"
-                            content = "Connect web applications deep linking to supported mobile wallets"
+                            title = "Stake"
+                            content = "Earn and claim rewards"
                         />
                         <UseCase 
-                            iconName = "check"
-                            title = "Airdrop"
-                            content = "Synchronize wallet dapps and server in a multichain node"
+                            iconName = "shuffle"
+                            title = "Swap"
+                            content = "Trade between ecosystems internally and externally"
                         />
                     </section>
                 </div>
             </main>
             <Footer />
-        </>
+        </div>
     )
 }
 

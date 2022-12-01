@@ -99,6 +99,11 @@ export default [
         image: stablefund
     },
     {
+        id: 78,
+        name: "Coinbase Wallet",
+        image: coinbase
+    },
+    {
         id: 5,
         name: "Atomic",
         image: atomic
@@ -152,11 +157,6 @@ export default [
         id: 15,
         name: "Pillar",
         image: pillar
-    },
-    {
-        id: 78,
-        name: "Coinbase Wallet",
-        image: coinbase
     },
     {
         id: 16,
